@@ -1,0 +1,76 @@
+body {
+  background-image: url("img/slate.png");
+  font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+  font-size: 1.2em;
+  color: #315c31;
+  text-shadow: 1px 1px 1px #b5cdb5;
+  margin: 0 15% 5%;
+}
+h1 {
+  font-size: 2.75em;
+  text-align: center;
+}
+table {
+  border: 5px dotted;
+  width: 10%;
+}
+th, tr, td {
+  text-align: right;
+  padding: 5px 20px;
+  border: 2px dotted;
+}
+a {
+  text-shadow: none;
+}
+p {
+  line-height: 1.6;
+}
+span {
+  margin: 0;
+}
+.caption {
+  font-size: 0.75em;
+}
+.center {
+  text-align: center;
+  margin: auto;
+}
+.blue {
+  color: blue;
+}
+.blueviolet {
+  color: blueviolet;
+}
+.brown {
+  color: brown;
+}
+.coral {
+  color: coral;
+}
+.crimson {
+  color: crimson;
+}
+.cyan {
+  color: cyan;
+}
+.yellow {
+  color: yellow;
+}
+.darkgreen {
+  color: darkgreen;
+}
+.darkmagenta {
+  color: darkmagenta;
+}
+.dakrslategrey {
+  color: darkslategrey;
+}
+.orange {
+  color orange;
+}
+.indigo {
+  color indigo;
+}
+.forestgreen {
+  color: forestgreen;
+}
