@@ -4,73 +4,42 @@ body {
   font-size: 1.2em;
   color: #315c31;
   text-shadow: 1px 1px 1px #b5cdb5;
-  margin: 0 15% 5%;
-}
-h1 {
-  font-size: 2.75em;
-  text-align: center;
+  padding: 5% 15% 5%;
 }
 table {
-  border: 5px dotted;
-  width: 10%;
+  border: 5px outset;
+  width: 100%;
 }
-th, tr, td {
-  text-align: right;
-  padding: 5px 20px;
-  border: 2px dotted;
-}
-a {
-  text-shadow: none;
-}
-p {
-  line-height: 1.6;
-}
-span {
-  margin: 0;
-}
-.caption {
-  font-size: 0.75em;
-}
-.center {
+th, tr {
   text-align: center;
-  margin: auto;
+  font-size: 1.2em;
+  border: 2px outset;
 }
-.blue {
-  color: blue;
+td {
+  text-align: center;
+  font-size: 1.2em;
+  border: 4px outset;
 }
-.blueviolet {
-  color: blueviolet;
+td:hover {
+  background-color: #fff;
 }
-.brown {
-  color: brown;
+#calc-container {
+  border: 12px ridge;
+  width: 275px;
 }
-.coral {
-  color: coral;
+#display {
+  border: 2px solid;
+  font-size: 3em;
+  padding: 2% 1% 2% 4%;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.2;
+  width: auto;
 }
-.crimson {
-  color: crimson;
-}
-.cyan {
-  color: cyan;
-}
-.yellow {
-  color: yellow;
-}
-.darkgreen {
-  color: darkgreen;
-}
-.darkmagenta {
-  color: darkmagenta;
-}
-.dakrslategrey {
-  color: darkslategrey;
-}
-.orange {
-  color orange;
-}
-.indigo {
-  color indigo;
-}
-.forestgreen {
-  color: forestgreen;
+#calc {
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
 }
