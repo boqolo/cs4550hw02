@@ -23,6 +23,10 @@ td {
 td:hover {
   background-color: #fff;
 }
+.center {
+  text-align: center;
+  margin: auto;
+}
 #calc-container {
   border: 12px ridge;
   width: 275px;
