@@ -11,7 +11,7 @@ measuringworm.com
 
 3. What's the link to your repository on github with your code?
 
-https://github.com/boqolo/cs4550hw02/tree/master
+https://github.com/boqolo/cs4550hw02
 
 4. How many HTML / CSS tutorial exercises did you do?
 
