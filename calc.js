@@ -12,7 +12,8 @@ window.onload = () => {
   };
 
   // DOM update fn
-  var updateDOM = (displayStr) => document.getElementById("display").innerHTML = displayStr;
+  var updateDOM = (displayStr) => 
+    document.getElementById("display").innerHTML = displayStr;
 
   var isInMiddleOfOperation = () => /[-\+/\*]/.test(state.numStr);
 
@@ -49,82 +50,55 @@ window.onload = () => {
     }
   };
 
+  // ----- Funcion Button Scaffold
+  var arithFn = (opStr, calcSoFar) => {
+    if (opStr === "+/=") {
+      return (arg) => parseFloat(calcSoFar) + arg;
+    } else if (opStr === "-") {
+      return (arg) => parseFloat(calcSoFar) - arg;
+    } else if (opStr === "*") {
+      return (arg) => parseFloat(calcSoFar) * arg;
+    } else {
+      return (arg) => parseFloat(calcSoFar) / arg;
+    }
+  };
+
+  var pressFunction = (opStr) => {
+    if (!state.numStr || isInMiddleOfOperation()) {
+      return;
+    } else if (state.fn) {
+      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
+      if (opStr === "+/=") {
+        state.numStr = calcSoFar;
+        state.fn = undefined;
+        state.isResult = true;
+      } else {
+        state.numStr = opStr;
+        state.fn = arithFn(opStr, calcSoFar);
+      }
+      updateDOM(calcSoFar);
+    } else {
+      var calcSoFar = state.numStr;
+      state.fn = arithFn(opStr, calcSoFar);
+      state.numStr = opStr === "+/=" ? "+" : opStr;
+      updateDOM(state.numStr);
+    }
+  };
+
   // ----- Bind Function Button Handlers
-  document.getElementById("plus/equals").onclick = () => {
-    if (!state.numStr || isInMiddleOfOperation()) {
-      return;
-    }
-    else if (state.fn) {
-      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
-      state.fn = undefined;
-      state.isResult = true;
-      state.numStr = calcSoFar;
-      updateDOM(calcSoFar);
-    } else {
-      var calcSoFar = state.numStr;
-      state.fn = (arg) => parseFloat(calcSoFar) + arg;
-      state.numStr = "+";
-      updateDOM("+");
-    }
-  };
-
-  document.getElementById("minus").onclick = () => {
-    if (!state.numStr || isInMiddleOfOperation()) {
-      return;
-    }
-    else if (state.fn) {
-      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
-      state.fn = (arg) => parseFloat(calcSoFar) - arg;
-      state.numStr = "-";
-      updateDOM(calcSoFar);
-    } else {
-      var calcSoFar = state.numStr;
-      state.fn = (arg) => parseFloat(calcSoFar) - arg;
-      state.numStr = "-";
-      updateDOM("-");
-    }
-  };
-
-  document.getElementById("times").onclick = () => {
-    if (!state.numStr || isInMiddleOfOperation()) {
-      return;
-    }
-    else if (state.fn) {
-      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
-      state.fn = (arg) => parseFloat(calcSoFar) * arg;
-      state.numStr = "*";
-      updateDOM(calcSoFar);
-    } else {
-      var calcSoFar = state.numStr;
-      state.fn = (arg) => parseFloat(calcSoFar) * arg;
-      state.numStr = "*";
-      updateDOM("*");
-    }
-  };
-
-  document.getElementById("divide").onclick = () => {
-    if (!state.numStr || isInMiddleOfOperation()) {
-      return;
-    }
-    else if (state.fn) {
-      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
-      state.fn = (arg) => parseFloat(calcSoFar) / arg;
-      state.numStr = "/";
-      updateDOM(calcSoFar);
-    } else {
-      var calcSoFar = state.numStr;
-      state.fn = (arg) => parseFloat(calcSoFar) / arg;
-      state.numStr = "/";
-      updateDOM("/");
-    }
-  };
+  document.getElementById("plus/equals").onclick = () => pressFunction("+/=");
+  document.getElementById("minus").onclick = () => pressFunction("-");
+  document.getElementById("times").onclick = () => pressFunction("*");
+  document.getElementById("divide").onclick = () => pressFunction("/");
 
   // ----- Clear Button Handler
   document.getElementById("clear").onclick = () => {
     // reset state
-    state.numStr = "";
-    state.fn = undefined;
-    state.isResult = false;
+    state = {
+      numStr: "",
+      fn: undefined,
+      isResult: false
+    };
     updateDOM("0");
   };
 };
