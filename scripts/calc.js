@@ -110,8 +110,13 @@ window.onload = () => {
     }
   };
 
+  var isInvalidOperatorPress = (state) => {
+    return isInMiddleOfOperation(state) || 
+      state.display === "." || !state.display;
+  };
+
   var pressOperator = (state, operatorStr) => {
-    if (!state.display || isInMiddleOfOperation(state)) {
+    if (isInvalidOperatorPress(state)) {
       return state;
     } else if (state.fn) {
       var newState = { ...state };

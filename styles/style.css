@@ -1,5 +1,5 @@
 body {
-  background-image: url("img/slate.png");
+  background-image: url("../img/slate.png");
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
   font-size: 1.2em;
   color: #315c31;
@@ -36,7 +36,8 @@ td:hover {
   font-size: 3em;
   padding: 2% 1% 2% 4%;
   text-align: right;
-  /* Precision is dictated by browser window size */
+  /* Overflow is determined by container width
+   * which provides roughly 12 digits of precision */
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

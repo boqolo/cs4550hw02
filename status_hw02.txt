@@ -1,0 +1,61 @@
+Please fill in answers to the questions below:
+
+
+1. What's your name?
+
+Rayyan Abdi
+
+2. What hostname did you deploy to?
+
+measuringworm.com
+
+3. What's the link to your repository on github with your code?
+
+https://github.com/boqolo/cs4550hw02/tree/master
+
+4. How many HTML / CSS tutorial exercises did you do?
+
+80% of the CSS exercises and 40% of the HTML exercises. 
+I have some previous experience with HTML/CSS and so did not
+do the exercises for parts that I felt I had an understanding.
+
+5. How comfortable do you feel with HTML and CSS now?
+
+I feel like I am about at an intermediate level now and
+have a solid grasp such that I can understand online 
+references for new concepts in both.
+
+6. How many JS tutorial exercises did you do?
+
+I prioritized parts I was most unfamiliar with and
+completed around 50% of the exercises.
+
+7. How comfortable do you feel with JS now?
+
+I feel much more comfortable with the language features
+and think that I have a good intuition of it.
+The functional programming design that JS comes with,
+though, I am less comfortable with.
+
+8. Do all of your HTML pages pass the W3C HTML validator?
+(https://validator.w3.org/)
+
+Yes
+
+9. Which parts of this assignment did you have trouble with, if any?
+
+I think I had some trouble trying to design this in the Functional
+style. My first run through was more procedural but felt
+disorganized so I refactored and naturally had a run in with bugs.
+
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Task 1
+ - Task 2
+ - Task 3
+ - Task 4
+ - Task 5
+ - Task 6
+ - Task 7
+ - Task 8
