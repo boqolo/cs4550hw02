@@ -5,101 +5,168 @@ window.onload = () => {
   "use strict";
 
   // State
-  let state = {
-    numStr: "",
+  let GLOBAL_STATE = {
+    display: "0",
+    calcSoFar: 0,
     fn: undefined,
     isResult: false
   };
 
   // DOM update fn
-  var updateDOM = (displayStr) => 
-    document.getElementById("display").innerHTML = displayStr;
+  var updateDOM = (state) => 
+    document.getElementById("display").innerHTML = state.display;
 
-  var isInMiddleOfOperation = () => /[-\+/\*]/.test(state.numStr);
+  // Global App State update fn
+  var updateState = (newState) => {
+    GLOBAL_STATE = newState;
+  };
+
+  var isInMiddleOfOperation = (state) => {
+    return state.display.length === 1 && /[-\+/\*]/.test(state.display);
+  };
 
   // Digit Button Handler
-  var pressDigit = (digitStr) => {
-    if (state.isResult || isInMiddleOfOperation()) {
-      state.numStr = "";
-      state.isResult = false;
+  var pressDigit = (state, digitStr) => {
+    var newState = { ...state };
+    if (state.display === "0" || state.isResult || isInMiddleOfOperation(state)) {
+      newState.display = "";
+      newState.isResult = false;
     }
-    state.numStr = state.numStr.concat(digitStr);
-    updateDOM(state.numStr);
+    newState.display = newState.display.concat(digitStr);
+    return newState;
   }
 
   // ----- Bind Digit Button Handlers
-  document.getElementById("1").onclick = () => pressDigit("1");
-  document.getElementById("2").onclick = () => pressDigit("2");
-  document.getElementById("3").onclick = () => pressDigit("3");
-  document.getElementById("4").onclick = () => pressDigit("4");
-  document.getElementById("5").onclick = () => pressDigit("5");
-  document.getElementById("6").onclick = () => pressDigit("6");
-  document.getElementById("7").onclick = () => pressDigit("7");
-  document.getElementById("8").onclick = () => pressDigit("8");
-  document.getElementById("9").onclick = () => pressDigit("9");
+  document.getElementById("1").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "1"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("2").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "2"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("3").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "3"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("4").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "4"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("5").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "5"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("6").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "6"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("7").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "7"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("8").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "8"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("9").onclick = () => {
+    updateState(pressDigit(GLOBAL_STATE, "9"));
+    updateDOM(GLOBAL_STATE);
+  };
+
   document.getElementById("0").onclick = () => {
-    if (state.numStr[0] !== "0") {
-      pressDigit("0");
+    if (GLOBAL_STATE.display !== "0") {
+      updateState(pressDigit(GLOBAL_STATE, "0"));
+      updateDOM(GLOBAL_STATE);
     }
   };
 
   // Decimal point Handler
   document.getElementById("decimal").onclick = () => {
-    if (!state.numStr.includes(".")) {
-      pressDigit(".");
+    if (!GLOBAL_STATE.display.includes(".")) {
+      updateState(pressDigit(GLOBAL_STATE, "."));
+      updateDOM(GLOBAL_STATE);
     }
   };
 
-  // ----- Funcion Button Scaffold
-  var arithFn = (opStr, calcSoFar) => {
-    if (opStr === "+/=") {
-      return (arg) => parseFloat(calcSoFar) + arg;
-    } else if (opStr === "-") {
-      return (arg) => parseFloat(calcSoFar) - arg;
-    } else if (opStr === "*") {
-      return (arg) => parseFloat(calcSoFar) * arg;
+  // Funcion Button Scaffold
+  var arithFn = (operatorStr, calcSoFar) => {
+    if (operatorStr === "+/=") {
+      return (arg) => calcSoFar + arg;
+    } else if (operatorStr === "-") {
+      return (arg) => calcSoFar - arg;
+    } else if (operatorStr === "*") {
+      return (arg) => calcSoFar * arg;
     } else {
-      return (arg) => parseFloat(calcSoFar) / arg;
+      return (arg) => calcSoFar / arg;
     }
   };
 
-  var pressFunction = (opStr) => {
-    if (!state.numStr || isInMiddleOfOperation()) {
-      return;
+  var pressOperator = (state, operatorStr) => {
+    if (!state.display || isInMiddleOfOperation(state)) {
+      return state;
     } else if (state.fn) {
-      var calcSoFar = state.fn(parseFloat(state.numStr)).toString();
-      if (opStr === "+/=") {
-        state.numStr = calcSoFar;
-        state.fn = undefined;
-        state.isResult = true;
+      var newState = { ...state };
+      var calcSoFar = state.fn(parseFloat(state.display));
+      newState.calcSoFar = calcSoFar;
+      newState.display = calcSoFar.toString();
+      newState.isResult = true;
+      if (operatorStr === "+/=") {
+        newState.fn = undefined;
       } else {
-        state.numStr = opStr;
-        state.fn = arithFn(opStr, calcSoFar);
+        newState.fn = arithFn(operatorStr, calcSoFar);
       }
-      updateDOM(calcSoFar);
+      return newState;
     } else {
-      var calcSoFar = state.numStr;
-      state.fn = arithFn(opStr, calcSoFar);
-      state.numStr = opStr === "+/=" ? "+" : opStr;
-      updateDOM(state.numStr);
+      var newState = { ...state };
+      var calcSoFar = parseFloat(state.display);
+      newState.calcSoFar = calcSoFar;
+      newState.fn = arithFn(operatorStr, calcSoFar);
+      newState.display = operatorStr === "+/=" ? "+" : operatorStr;
+      return newState;
     }
   };
 
-  // ----- Bind Function Button Handlers
-  document.getElementById("plus/equals").onclick = () => pressFunction("+/=");
-  document.getElementById("minus").onclick = () => pressFunction("-");
-  document.getElementById("times").onclick = () => pressFunction("*");
-  document.getElementById("divide").onclick = () => pressFunction("/");
+  // ----- Bind Arithmetic Operator Button Handlers
+  document.getElementById("plus/equals").onclick = () => {
+    updateState(pressOperator(GLOBAL_STATE, "+/="));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("minus").onclick = () => {
+    updateState(pressOperator(GLOBAL_STATE, "-"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("times").onclick = () => {
+    updateState(pressOperator(GLOBAL_STATE, "*"));
+    updateDOM(GLOBAL_STATE);
+  };
+
+  document.getElementById("divide").onclick = () => {
+    updateState(pressOperator(GLOBAL_STATE, "/"));
+    updateDOM(GLOBAL_STATE);
+  };
 
   // ----- Clear Button Handler
   document.getElementById("clear").onclick = () => {
     // reset state
-    state = {
-      numStr: "",
+    var newState = {
+      display: "0",
+      calcSoFar: 0,
       fn: undefined,
       isResult: false
     };
-    updateDOM("0");
+    updateState(newState);
+    updateDOM(newState);
   };
 };
 
