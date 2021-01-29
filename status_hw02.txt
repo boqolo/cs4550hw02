@@ -7,7 +7,7 @@ Rayyan Abdi
 
 2. What hostname did you deploy to?
 
-measuringworm.com
+hw02.measuringworm.com
 
 3. What's the link to your repository on github with your code?
 
