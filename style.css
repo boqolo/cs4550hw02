@@ -8,7 +8,6 @@ body {
 }
 table {
   border: 5px outset;
-  width: 100%;
 }
 th, tr {
   text-align: center;
@@ -29,21 +28,25 @@ td:hover {
 }
 #calc-container {
   border: 12px ridge;
-  width: 275px;
+  width: 60%;
+  height: 60%;
 }
 #display {
   border: 2px solid;
   font-size: 3em;
   padding: 2% 1% 2% 4%;
   text-align: right;
+  /* Precision is dictated by browser window size */
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   line-height: 1.2;
   width: auto;
+  user-select: none;
 }
 #calc {
   width: 100%;
+  height: 73%;
   cursor: pointer;
   user-select: none;
 }

@@ -14,10 +14,11 @@ window.onload = () => {
   // DOM update fn
   var updateDOM = (displayStr) => document.getElementById("display").innerHTML = displayStr;
 
+  var isInMiddleOfOperation = () => /[-\+/\*]/.test(state.numStr);
+
   // Digit Button Handler
   var pressDigit = (digitStr) => {
-    var isOperator = /[-\+/\*]/.test(state.numStr);
-    if (state.isResult || isOperator) {
+    if (state.isResult || isInMiddleOfOperation()) {
       state.numStr = "";
       state.isResult = false;
     }
@@ -36,7 +37,7 @@ window.onload = () => {
   document.getElementById("8").onclick = () => pressDigit("8");
   document.getElementById("9").onclick = () => pressDigit("9");
   document.getElementById("0").onclick = () => {
-    if (state.numStr) {
+    if (state.numStr[0] !== "0") {
       pressDigit("0");
     }
   };
@@ -44,14 +45,13 @@ window.onload = () => {
   // Decimal point Handler
   document.getElementById("decimal").onclick = () => {
     if (!state.numStr.includes(".")) {
-      state.numStr = state.numStr.concat(".");
-      updateDOM(state.numStr);
+      pressDigit(".");
     }
   };
 
-  // ----- Function Button Handlers
+  // ----- Bind Function Button Handlers
   document.getElementById("plus/equals").onclick = () => {
-    if (!state.numStr) {
+    if (!state.numStr || isInMiddleOfOperation()) {
       return;
     }
     else if (state.fn) {
@@ -69,7 +69,7 @@ window.onload = () => {
   };
 
   document.getElementById("minus").onclick = () => {
-    if (!state.numStr) {
+    if (!state.numStr || isInMiddleOfOperation()) {
       return;
     }
     else if (state.fn) {
@@ -86,7 +86,7 @@ window.onload = () => {
   };
 
   document.getElementById("times").onclick = () => {
-    if (!state.numStr) {
+    if (!state.numStr || isInMiddleOfOperation()) {
       return;
     }
     else if (state.fn) {
@@ -103,7 +103,7 @@ window.onload = () => {
   };
 
   document.getElementById("divide").onclick = () => {
-    if (!state.numStr) {
+    if (!state.numStr || isInMiddleOfOperation()) {
       return;
     }
     else if (state.fn) {
