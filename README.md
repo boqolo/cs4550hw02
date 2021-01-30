@@ -1,5 +1,5 @@
-# [hw02](hw02.measuringoworm.com)
+# [hw02](www.hw02.measuringoworm.com)
 
-## [animal page](hw02.measuringworm.com/animal.html)
+## [animal page](www.hw02.measuringworm.com/animal.html)
 
-## [calculator page](hw02.measuringworm.com/calc.html)
+## [calculator page](www.measuringworm.com/calc.html)
